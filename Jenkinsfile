@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'slave'
+    }
 
     stages {
         stage('Code') {
@@ -12,6 +14,16 @@ pipeline {
                  sh "mvn clean package"
             }
         }
-     
+       stage('artifact'){
+           steps{
+               nexusArtifactUploader artifacts: [[artifactId: 'myweb', classifier: '', file: 'target/myweb-8.6.5.war', type: '.war']], credentialsId: '', groupId: 'in.javahome', nexusUrl: '44.212.62.229:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus', version: '8.6.5'
+           }
+       }  
+  
+       }
+post{
+    success{
+        echo "hello"
+    }
     }
 }
