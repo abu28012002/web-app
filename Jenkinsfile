@@ -24,6 +24,7 @@ pipeline {
                 deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat', path: '', url: 'http://3.87.199.154:8080/manager/html')], contextPath: 'new', war: 'target/*.war'
          }
     }
+    }
 post{
     success{
         echo "hello"
@@ -32,3 +33,4 @@ post{
 
 
 }
+
